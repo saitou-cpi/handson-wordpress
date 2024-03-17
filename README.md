@@ -12,7 +12,7 @@
 ## 使う前に
 terraformを実行する前に、"terraform.tfvars"を編集する。
 
-{code}
+```yaml
 project = "your project name" # あなたのプロジェクト名
 user    = "your name" # あなたのユーザー名
 myip    = "your ip address" # あなたのローカル環境のIPアドレス
@@ -20,7 +20,7 @@ region  = "ap-southeast-1" # デプロイしたいリージョン
 az_1a   = "ap-southeast-1a" # デプロイしたいひとつめのAZ
 az_1c   = "ap-southeast-1c" # デプロイしたいふたつめのAZ
 keypair = "your keyname" # EC2インスタンスに利用するキーペア名
-{/code}
+```
 
 ### 事前準備
 デプロイ先リージョンにキーペアを作成しておきましょう。
