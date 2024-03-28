@@ -1,6 +1,6 @@
 project = "saitou-test"
 user    = "saitou"
-myip    = "175.177.44.66/32"
+myip    = "xxx.xxx.xxx.xxx/xx"
 region  = "ap-southeast-1"
 az_1a   = "ap-southeast-1a"
 az_1c   = "ap-southeast-1c"
