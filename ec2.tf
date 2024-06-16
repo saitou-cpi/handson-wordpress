@@ -2,7 +2,7 @@
 # EC2 Instance
 # ---------------------------
 resource "aws_instance" "master" {
-  ami                         = data.aws_ami.amazon_linux_2023.id
+  ami                         = data.aws_ami.amazon_linux.id
   instance_type               = "m5.large"
   subnet_id                   = aws_subnet.public_subnet_1a.id
   associate_public_ip_address = true
@@ -13,6 +13,11 @@ resource "aws_instance" "master" {
 
   root_block_device {
     volume_size = 30
+    volume_type = "gp3"
+    tags = {
+      Name = "${var.project}-master-root-volume"
+      User = var.user
+    }
   }
 
   key_name = var.keypair
@@ -28,6 +33,23 @@ resource "aws_instance" "master" {
     sudo systemctl start amazon-ssm-agent
   EOF
 
+}
+
+resource "aws_ebs_volume" "second_volume" {
+  availability_zone = var.az_1a
+  size              = 16
+  type              = "gp3"
+
+  tags = {
+    Name = "${var.project}-master-second-volume"
+    User = var.user
+  }
+}
+
+resource "aws_volume_attachment" "ebs_att" {
+  device_name = "/dev/sdb"
+  volume_id   = aws_ebs_volume.second_volume.id
+  instance_id = aws_instance.master.id
 }
 
 output "master_public_ips" {
